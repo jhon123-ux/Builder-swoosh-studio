@@ -83,6 +83,66 @@ const Index = () => {
     }
   };
 
+  const handlePositionToggle = (position: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      positions: prev.positions.includes(position)
+        ? prev.positions.filter((p) => p !== position)
+        : [...prev.positions, position],
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+
+    try {
+      // Prepare email data
+      const emailData = {
+        company_name: formData.companyName,
+        positions_needed: formData.positions.join(", "),
+        minimum_experience: formData.minimumExperience,
+        practice_type: practiceType,
+        software_systems: selectedSystems.join(", "),
+        custom_software: othersText,
+        submission_date: new Date().toLocaleDateString(),
+        submission_time: new Date().toLocaleTimeString(),
+      };
+
+      // For now, we'll log the data and show success
+      // In production, you'd integrate with EmailJS or your backend API
+      console.log("Form submission data:", emailData);
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Reset form on success
+      setFormData({
+        companyName: "",
+        positions: [],
+        minimumExperience: "",
+        practiceType: "medical",
+        softwareSystems: [],
+        customSoftware: "",
+      });
+      setSelectedSystems([]);
+      setOthersText("");
+      setPracticeType("medical");
+
+      setSubmitStatus("success");
+
+      // TODO: Replace with actual email service integration
+      // Example with EmailJS:
+      // await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailData, 'YOUR_PUBLIC_KEY');
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const isOthersSelected = selectedSystems.includes("Others (specify name)");
 
   return (
