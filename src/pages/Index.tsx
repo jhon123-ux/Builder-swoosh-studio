@@ -19,6 +19,21 @@ const Index = () => {
   const [selectedSystems, setSelectedSystems] = useState<string[]>([]);
   const [othersText, setOthersText] = useState("");
 
+  // Form state
+  const [formData, setFormData] = useState({
+    companyName: "",
+    positions: [] as string[],
+    minimumExperience: "",
+    practiceType: "medical",
+    softwareSystems: [] as string[],
+    customSoftware: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+
   const medicalSoftwareOptions = [
     "Epic",
     "Cerner",
