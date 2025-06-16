@@ -31,7 +31,7 @@ export const emailConfig = {
 // {{submission_time}} - Time of submission
 // {{message}} - Formatted message with all details
 
-/* 
+/*
 SAMPLE EMAIL TEMPLATE FOR EMAILJS:
 
 Subject: New Staffing Request from {{company_name}}
