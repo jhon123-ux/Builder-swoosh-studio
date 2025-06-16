@@ -99,24 +99,44 @@ const Index = () => {
     setSubmitStatus("idle");
 
     try {
-      // Prepare email data
-      const emailData = {
+      // Initialize EmailJS (you'll need to get these values from EmailJS dashboard)
+      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+
+      // Prepare email template parameters
+      const templateParams = {
+        to_email_1: "adnankhalid@cedarfinancial.com",
+        to_email_2: "zjaved@cedarfinancial.com",
         company_name: formData.companyName,
-        positions_needed: formData.positions.join(", "),
+        positions_needed: formData.positions.join(", ") || "None selected",
         minimum_experience: formData.minimumExperience,
-        practice_type: practiceType,
-        software_systems: selectedSystems.join(", "),
-        custom_software: othersText,
+        practice_type:
+          practiceType.charAt(0).toUpperCase() + practiceType.slice(1),
+        software_systems: selectedSystems.join(", ") || "None selected",
+        custom_software: othersText || "N/A",
         submission_date: new Date().toLocaleDateString(),
         submission_time: new Date().toLocaleTimeString(),
+        message: `
+New staffing request from ${formData.companyName}:
+
+Company: ${formData.companyName}
+Practice Type: ${practiceType.charAt(0).toUpperCase() + practiceType.slice(1)}
+Positions Needed: ${formData.positions.join(", ") || "None selected"}
+Minimum Experience: ${formData.minimumExperience}
+Software Systems: ${selectedSystems.join(", ") || "None selected"}
+${othersText ? `Custom Software: ${othersText}` : ""}
+
+Submitted on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+        `.trim(),
       };
 
-      // For now, we'll log the data and show success
-      // In production, you'd integrate with EmailJS or your backend API
-      console.log("Form submission data:", emailData);
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        "YOUR_SERVICE_ID", // Replace with your EmailJS service ID
+        "YOUR_TEMPLATE_ID", // Replace with your EmailJS template ID
+        templateParams,
+      );
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Email sent successfully:", result);
 
       // Reset form on success
       setFormData({
@@ -132,12 +152,8 @@ const Index = () => {
       setPracticeType("medical");
 
       setSubmitStatus("success");
-
-      // TODO: Replace with actual email service integration
-      // Example with EmailJS:
-      // await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailData, 'YOUR_PUBLIC_KEY');
     } catch (error) {
-      console.error("Form submission error:", error);
+      console.error("Email sending failed:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
