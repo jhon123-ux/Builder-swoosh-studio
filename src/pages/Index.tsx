@@ -15,6 +15,41 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 
 const Index = () => {
+  const [practiceType, setPracticeType] = useState("medical");
+
+  const medicalSoftwareOptions = [
+    "Epic",
+    "Cerner",
+    "Allscripts",
+    "NextGen",
+    "eClinicalWorks",
+    "Practice Fusion",
+    "Athenahealth",
+    "Greenway Health",
+    "Kareo",
+    "ChartLogic",
+    "Others (specify name)",
+  ];
+
+  const dentalSoftwareOptions = [
+    { name: "Dentrix", selected: false },
+    { name: "Open Dental", selected: false },
+    { name: "Dexis", selected: false },
+    { name: "PracticeWorks", selected: false },
+    { name: "Apteryx", selected: false },
+    { name: "Others (specify name)", selected: true },
+    { name: "Eaglesoft", selected: false },
+    { name: "Curve Dental", selected: false },
+    { name: "Carestream", selected: false },
+    { name: "SoftDent", selected: false },
+    { name: "Dolphin", selected: false },
+  ];
+
+  const currentSoftwareOptions =
+    practiceType === "dental"
+      ? dentalSoftwareOptions.map((option) => option.name)
+      : medicalSoftwareOptions;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
