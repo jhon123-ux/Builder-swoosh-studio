@@ -1001,7 +1001,11 @@ const Index = () => {
                       "Certified Medical Specialist",
                     ].map((option) => (
                       <div key={option} className="flex items-center space-x-2">
-                        <Checkbox id={option} />
+                        <Checkbox
+                          id={option}
+                          checked={formData.positions.includes(option)}
+                          onCheckedChange={() => handlePositionToggle(option)}
+                        />
                         <Label htmlFor={option} className="text-rs-text">
                           {option}
                         </Label>
