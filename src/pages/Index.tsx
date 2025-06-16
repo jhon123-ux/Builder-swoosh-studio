@@ -958,19 +958,7 @@ const Index = () => {
                     that apply)
                   </Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {[
-                      "Epic",
-                      "Cerner",
-                      "Allscripts",
-                      "NextGen",
-                      "eClinicalWorks",
-                      "Practice Fusion",
-                      "Athenahealth",
-                      "Greenway Health",
-                      "Kareo",
-                      "ChartLogic",
-                      "Others (specify name)",
-                    ].map((system) => (
+                    {currentSoftwareOptions.map((system) => (
                       <div key={system} className="flex items-center space-x-2">
                         <Checkbox id={system} />
                         <Label htmlFor={system} className="text-rs-text">
