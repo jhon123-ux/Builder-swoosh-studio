@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { emailConfig } from "@/lib/emailConfig";
 
 const Index = () => {
   const [practiceType, setPracticeType] = useState("medical");
