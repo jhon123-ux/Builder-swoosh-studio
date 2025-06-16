@@ -966,7 +966,7 @@ const Index = () => {
                 Speak To a Staffing Specialist Today!
               </h3>
 
-              <form className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
                   <Label htmlFor="company" className="text-rs-text">
                     Company name<span className="text-red-500">*</span>
@@ -975,6 +975,14 @@ const Index = () => {
                     id="company"
                     placeholder="Enter your company name"
                     className="mt-2"
+                    value={formData.companyName}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        companyName: e.target.value,
+                      }))
+                    }
+                    required
                   />
                 </div>
 
