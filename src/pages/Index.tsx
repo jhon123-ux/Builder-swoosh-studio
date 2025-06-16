@@ -132,8 +132,8 @@ Submitted on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeStr
 
       // Send email using EmailJS
       const result = await emailjs.send(
-        "YOUR_SERVICE_ID", // Replace with your EmailJS service ID
-        "YOUR_TEMPLATE_ID", // Replace with your EmailJS template ID
+        emailConfig.serviceId,
+        emailConfig.templateId,
         templateParams,
       );
 
