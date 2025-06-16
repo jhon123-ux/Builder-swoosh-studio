@@ -979,11 +979,28 @@ const Index = () => {
                   </Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {currentSoftwareOptions.map((system) => (
-                      <div key={system} className="flex items-center space-x-2">
-                        <Checkbox id={system} />
-                        <Label htmlFor={system} className="text-rs-text">
-                          {system}
-                        </Label>
+                      <div key={system}>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id={system}
+                            checked={selectedSystems.includes(system)}
+                            onCheckedChange={() => handleSystemToggle(system)}
+                          />
+                          <Label htmlFor={system} className="text-rs-text">
+                            {system}
+                          </Label>
+                        </div>
+                        {system === "Others (specify name)" &&
+                          isOthersSelected && (
+                            <div className="mt-3 ml-6">
+                              <Input
+                                placeholder="Please specify the system name..."
+                                value={othersText}
+                                onChange={(e) => setOthersText(e.target.value)}
+                                className="w-full"
+                              />
+                            </div>
+                          )}
                       </div>
                     ))}
                   </div>
