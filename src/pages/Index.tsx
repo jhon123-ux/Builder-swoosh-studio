@@ -100,8 +100,8 @@ const Index = () => {
     setSubmitStatus("idle");
 
     try {
-      // Initialize EmailJS (you'll need to get these values from EmailJS dashboard)
-      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+      // Initialize EmailJS
+      emailjs.init(emailConfig.publicKey);
 
       // Prepare email template parameters
       const templateParams = {
