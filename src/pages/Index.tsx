@@ -1018,7 +1018,15 @@ const Index = () => {
                   <Label className="text-rs-text">
                     Minimum Experience<span className="text-red-500">*</span>
                   </Label>
-                  <Select>
+                  <Select
+                    value={formData.minimumExperience}
+                    onValueChange={(value) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        minimumExperience: value,
+                      }))
+                    }
+                  >
                     <SelectTrigger className="mt-2">
                       <SelectValue placeholder="Select minimum experience" />
                     </SelectTrigger>
