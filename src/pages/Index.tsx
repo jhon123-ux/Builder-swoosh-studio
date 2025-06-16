@@ -16,6 +16,8 @@ import { useState } from "react";
 
 const Index = () => {
   const [practiceType, setPracticeType] = useState("medical");
+  const [selectedSystems, setSelectedSystems] = useState<string[]>([]);
+  const [othersText, setOthersText] = useState("");
 
   const medicalSoftwareOptions = [
     "Epic",
@@ -49,6 +51,24 @@ const Index = () => {
     practiceType === "dental"
       ? dentalSoftwareOptions.map((option) => option.name)
       : medicalSoftwareOptions;
+
+  const handleSystemToggle = (system: string) => {
+    setSelectedSystems((prev) =>
+      prev.includes(system)
+        ? prev.filter((s) => s !== system)
+        : [...prev, system],
+    );
+
+    // Clear others text if unchecking "Others (specify name)"
+    if (
+      system === "Others (specify name)" &&
+      selectedSystems.includes(system)
+    ) {
+      setOthersText("");
+    }
+  };
+
+  const isOthersSelected = selectedSystems.includes("Others (specify name)");
 
   return (
     <div className="min-h-screen bg-white">
