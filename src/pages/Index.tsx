@@ -928,14 +928,22 @@ const Index = () => {
                     Are you a Medical Practice or Dental Practice?
                     <span className="text-red-500">*</span>
                   </Label>
-                  <RadioGroup defaultValue="medical" className="mt-3">
-                    <div className="flex items-center space-x-2 px-2 py-1 rounded border border-rs-primary/30 bg-rs-primary/10">
+                  <RadioGroup
+                    value={practiceType}
+                    onValueChange={setPracticeType}
+                    className="mt-3"
+                  >
+                    <div
+                      className={`flex items-center space-x-2 px-2 py-1 rounded ${practiceType === "medical" ? "border border-rs-primary/30 bg-rs-primary/10" : ""}`}
+                    >
                       <RadioGroupItem value="medical" id="medical" />
                       <Label htmlFor="medical" className="text-rs-text">
                         Medical Practice
                       </Label>
                     </div>
-                    <div className="flex items-center space-x-2 px-2 py-1 rounded">
+                    <div
+                      className={`flex items-center space-x-2 px-2 py-1 rounded ${practiceType === "dental" ? "border border-rs-primary/30 bg-rs-primary/10" : ""}`}
+                    >
                       <RadioGroupItem value="dental" id="dental" />
                       <Label htmlFor="dental" className="text-rs-text">
                         Dental Practice
