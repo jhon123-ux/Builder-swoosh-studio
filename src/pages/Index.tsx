@@ -131,28 +131,55 @@ const Index = () => {
 
       console.log("Email sent successfully:", result);
 
-      // Reset form on success
-      setFormData({
-        companyName: "",
-        positions: [],
-        minimumExperience: "",
-        practiceType: "medical",
-        softwareSystems: [],
-        customSoftware: "",
-      });
-      setSelectedSystems([]);
-      setOthersText("");
-      setPracticeType("medical");
+      // Check if the response indicates success
+      if (result.status === 200 || result.text === "OK") {
+        // Reset form on success
+        setFormData({
+          companyName: "",
+          positions: [],
+          minimumExperience: "",
+          practiceType: "medical",
+          softwareSystems: [],
+          customSoftware: "",
+        });
+        setSelectedSystems([]);
+        setOthersText("");
+        setPracticeType("medical");
 
-      setSubmitStatus("success");
+        setSubmitStatus("success");
+      } else {
+        console.error("EmailJS returned non-success status:", result);
+        setSubmitStatus("error");
+      }
     } catch (error) {
       console.error("Detailed error information:", {
         error,
-        message: error.message,
-        status: error.status,
-        text: error.text,
+        message: error?.message,
+        status: error?.status,
+        text: error?.text,
+        response: error?.response,
       });
-      setSubmitStatus("error");
+
+      // Check if it's actually a success disguised as an error
+      if (error?.status === 200 || error?.text === "OK") {
+        console.log("Email actually sent successfully despite error catch");
+        // Reset form on success
+        setFormData({
+          companyName: "",
+          positions: [],
+          minimumExperience: "",
+          practiceType: "medical",
+          softwareSystems: [],
+          customSoftware: "",
+        });
+        setSelectedSystems([]);
+        setOthersText("");
+        setPracticeType("medical");
+
+        setSubmitStatus("success");
+      } else {
+        setSubmitStatus("error");
+      }
     } finally {
       setIsSubmitting(false);
     }
