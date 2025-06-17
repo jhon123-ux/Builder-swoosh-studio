@@ -142,11 +142,12 @@ Submitted on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeStr
       console.log("Sending email with service ID:", emailConfig.serviceId);
       console.log("Template ID:", emailConfig.templateId);
 
-      // Send email using EmailJS
+      // Send email using EmailJS with proper error handling
       const result = await emailjs.send(
         emailConfig.serviceId,
         emailConfig.templateId,
         templateParams,
+        emailConfig.publicKey,
       );
 
       console.log("Email sent successfully:", result);
