@@ -154,8 +154,14 @@ const Index = () => {
         );
 
         if (!directApiResponse.ok) {
+          const errorText = await directApiResponse.text();
+          console.error("EmailJS API Error Response:", {
+            status: directApiResponse.status,
+            statusText: directApiResponse.statusText,
+            response: errorText,
+          });
           throw new Error(
-            `Direct API call failed: ${directApiResponse.status} ${directApiResponse.statusText}`,
+            `Direct API call failed: ${directApiResponse.status} ${directApiResponse.statusText} - ${errorText}`,
           );
         }
 
