@@ -103,17 +103,24 @@ const Index = () => {
     console.log("EmailJS Config:", emailConfig);
 
     try {
-      // Alternative method: Let's try without explicit init and use simpler template params
+      // Initialize EmailJS properly
+      emailjs.init({
+        publicKey: emailConfig.publicKey,
+      });
+
+      // Simplified template params to avoid any formatting issues
       const templateParams = {
+        from_name: formData.companyName,
         company_name: formData.companyName,
         positions_needed: formData.positions.join(", ") || "None selected",
         minimum_experience: formData.minimumExperience,
-        practice_type:
-          practiceType.charAt(0).toUpperCase() + practiceType.slice(1),
+        practice_type: practiceType,
         software_systems: selectedSystems.join(", ") || "None selected",
         custom_software: othersText || "N/A",
         submission_date: new Date().toLocaleDateString(),
         submission_time: new Date().toLocaleTimeString(),
+        to_email: "adnankhalid@cedarfinancial.com, zjaved@cedarfinancial.com",
+        reply_to: "noreply@remotescouts.com",
       };
 
       console.log("Template parameters:", templateParams);
@@ -125,12 +132,11 @@ const Index = () => {
       let result;
 
       try {
-        // Method 1: Standard EmailJS send
+        // Method 1: Standard EmailJS send (without passing public key again since we initialized)
         result = await emailjs.send(
           emailConfig.serviceId,
           emailConfig.templateId,
           templateParams,
-          emailConfig.publicKey,
         );
       } catch (emailjsError) {
         console.error("Standard EmailJS Error Details:", {
