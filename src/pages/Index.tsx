@@ -133,6 +133,13 @@ const Index = () => {
           emailConfig.publicKey,
         );
       } catch (emailjsError) {
+        console.error("Standard EmailJS Error Details:", {
+          error: emailjsError,
+          message: emailjsError?.message,
+          status: emailjsError?.status,
+          text: emailjsError?.text,
+          response: emailjsError?.response,
+        });
         console.log("Standard EmailJS failed, trying direct API call...");
 
         // Method 2: Direct API call (as seen in your CURL)
