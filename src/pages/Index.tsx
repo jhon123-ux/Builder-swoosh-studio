@@ -121,13 +121,49 @@ const Index = () => {
       console.log("Template ID:", emailConfig.templateId);
       console.log("Public Key:", emailConfig.publicKey);
 
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        templateParams,
-        emailConfig.publicKey,
-      );
+      // Send email using EmailJS - try both methods
+      let result;
+
+      try {
+        // Method 1: Standard EmailJS send
+        result = await emailjs.send(
+          emailConfig.serviceId,
+          emailConfig.templateId,
+          templateParams,
+          emailConfig.publicKey,
+        );
+      } catch (emailjsError) {
+        console.log("Standard EmailJS failed, trying direct API call...");
+
+        // Method 2: Direct API call (as seen in your CURL)
+        const directApiResponse = await fetch(
+          "https://api.emailjs.com/api/v1.0/email/send",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              lib_version: "4.4.1",
+              user_id: emailConfig.publicKey,
+              service_id: emailConfig.serviceId,
+              template_id: emailConfig.templateId,
+              template_params: templateParams,
+            }),
+          },
+        );
+
+        if (!directApiResponse.ok) {
+          throw new Error(
+            `Direct API call failed: ${directApiResponse.status} ${directApiResponse.statusText}`,
+          );
+        }
+
+        result = {
+          status: directApiResponse.status,
+          text: await directApiResponse.text(),
+        };
+      }
 
       console.log("Email sent successfully:", result);
 
