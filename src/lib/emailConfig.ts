@@ -8,14 +8,14 @@
 // 6. Replace the values below
 
 export const emailConfig = {
-  // Get this from EmailJS Dashboard > Account > General
-  publicKey: "YOUR_EMAILJS_PUBLIC_KEY",
+  // EmailJS Public Key
+  publicKey: "kRpCbdpp1IIOvTLUI",
 
-  // Get this from EmailJS Dashboard > Email Services
-  serviceId: "YOUR_SERVICE_ID",
+  // EmailJS Service ID
+  serviceId: "service_ou4v93h",
 
-  // Get this from EmailJS Dashboard > Email Templates
-  templateId: "YOUR_TEMPLATE_ID",
+  // EmailJS Template ID
+  templateId: "template_68rh61n",
 };
 
 // Email template variables that will be populated:
