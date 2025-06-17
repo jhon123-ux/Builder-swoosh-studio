@@ -119,7 +119,7 @@ const Index = () => {
         custom_software: othersText || "N/A",
         submission_date: new Date().toLocaleDateString(),
         submission_time: new Date().toLocaleTimeString(),
-        to_email: "adnankhalid@cedarfinancial.com, zjaved@cedarfinancial.com",
+        to_email: "imanzoor@cedarfinancial.com",
         reply_to: "noreply@remotescouts.com",
       };
 
