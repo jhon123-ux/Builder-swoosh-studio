@@ -15,7 +15,7 @@ export const emailConfig = {
   serviceId: "service_iciwqlq",
 
   // EmailJS Template ID
-  templateId: "template_68rh61n",
+  templateId: "template_yf69ioo",
 };
 
 // Email template variables that will be populated:
