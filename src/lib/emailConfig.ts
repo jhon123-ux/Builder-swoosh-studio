@@ -19,8 +19,7 @@ export const emailConfig = {
 };
 
 // Email template variables that will be populated:
-// {{to_email_1}} - adnankhalid@cedarfinancial.com
-// {{to_email_2}} - zjaved@cedarfinancial.com
+// {{to_email}} - imanzoor@cedarfinancial.com
 // {{company_name}} - Company name from form
 // {{positions_needed}} - Selected positions
 // {{minimum_experience}} - Experience requirement
