@@ -99,14 +99,21 @@ const Index = () => {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
+    console.log("Starting form submission...");
+    console.log("EmailJS Config:", emailConfig);
+
     try {
       // Initialize EmailJS
+      console.log(
+        "Initializing EmailJS with public key:",
+        emailConfig.publicKey,
+      );
       emailjs.init(emailConfig.publicKey);
 
       // Prepare email template parameters
       const templateParams = {
-        to_email_1: "adnankhalid@cedarfinancial.com",
-        to_email_2: "zjaved@cedarfinancial.com",
+        to_name: "Remote Scouts Team",
+        from_name: formData.companyName,
         company_name: formData.companyName,
         positions_needed: formData.positions.join(", ") || "None selected",
         minimum_experience: formData.minimumExperience,
@@ -116,6 +123,7 @@ const Index = () => {
         custom_software: othersText || "N/A",
         submission_date: new Date().toLocaleDateString(),
         submission_time: new Date().toLocaleTimeString(),
+        reply_to: "noreply@remotescouts.com",
         message: `
 New staffing request from ${formData.companyName}:
 
@@ -129,6 +137,10 @@ ${othersText ? `Custom Software: ${othersText}` : ""}
 Submitted on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
         `.trim(),
       };
+
+      console.log("Template parameters:", templateParams);
+      console.log("Sending email with service ID:", emailConfig.serviceId);
+      console.log("Template ID:", emailConfig.templateId);
 
       // Send email using EmailJS
       const result = await emailjs.send(
@@ -154,7 +166,12 @@ Submitted on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeStr
 
       setSubmitStatus("success");
     } catch (error) {
-      console.error("Email sending failed:", error);
+      console.error("Detailed error information:", {
+        error,
+        message: error.message,
+        status: error.status,
+        text: error.text,
+      });
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
