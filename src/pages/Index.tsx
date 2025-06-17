@@ -103,17 +103,8 @@ const Index = () => {
     console.log("EmailJS Config:", emailConfig);
 
     try {
-      // Initialize EmailJS
-      console.log(
-        "Initializing EmailJS with public key:",
-        emailConfig.publicKey,
-      );
-      emailjs.init(emailConfig.publicKey);
-
-      // Prepare email template parameters
+      // Alternative method: Let's try without explicit init and use simpler template params
       const templateParams = {
-        to_name: "Remote Scouts Team",
-        from_name: formData.companyName,
         company_name: formData.companyName,
         positions_needed: formData.positions.join(", ") || "None selected",
         minimum_experience: formData.minimumExperience,
@@ -123,26 +114,14 @@ const Index = () => {
         custom_software: othersText || "N/A",
         submission_date: new Date().toLocaleDateString(),
         submission_time: new Date().toLocaleTimeString(),
-        reply_to: "noreply@remotescouts.com",
-        message: `
-New staffing request from ${formData.companyName}:
-
-Company: ${formData.companyName}
-Practice Type: ${practiceType.charAt(0).toUpperCase() + practiceType.slice(1)}
-Positions Needed: ${formData.positions.join(", ") || "None selected"}
-Minimum Experience: ${formData.minimumExperience}
-Software Systems: ${selectedSystems.join(", ") || "None selected"}
-${othersText ? `Custom Software: ${othersText}` : ""}
-
-Submitted on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
-        `.trim(),
       };
 
       console.log("Template parameters:", templateParams);
       console.log("Sending email with service ID:", emailConfig.serviceId);
       console.log("Template ID:", emailConfig.templateId);
+      console.log("Public Key:", emailConfig.publicKey);
 
-      // Send email using EmailJS with proper error handling
+      // Send email using EmailJS
       const result = await emailjs.send(
         emailConfig.serviceId,
         emailConfig.templateId,
